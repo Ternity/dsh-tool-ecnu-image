@@ -10,7 +10,7 @@ on:
   workflow_dispatch:
 
 jobs:
-  smoke:
+  verify:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -19,27 +19,5 @@ jobs:
           node-version: 20
       - name: Tool contract tests (offline)
         run: node tools/smoke.mjs
-      - name: Manifests parse and point at real files
-        run: |
-          node -e "
-            const fs = require('node:fs');
-            const pkg = JSON.parse(fs.readFileSync('package.json', 'utf8'));
-            const fail = (m) => { console.error('::error::' + m); process.exit(1); };
-            if (pkg.name !== 'dsh-tool-ecnu-image') fail('package name changed');
-            if (pkg.type !== 'module') fail('package must stay ESM');
-            if (!pkg.dsh || !pkg.dsh.bundle || pkg.dsh.bundle.patch !== './cordis.patch.yml') fail('dsh.bundle.patch must point at ./cordis.patch.yml');
-            for (const path of [pkg.main, pkg.exports['.'], pkg.dsh.bundle.patch, 'LICENSE', 'README.md']) {
-              if (!path || !fs.existsSync(path)) fail('missing file referenced by package.json: ' + path);
-            }
-            const entry = fs.readFileSync(pkg.main, 'utf8');
-            for (const name of ['image_generate', 'image_edit']) {
-              if (!entry.includes("'" + name + "'")) fail('entry does not register ' + name);
-            }
-            console.log('manifest ok');
-          "
-      - name: The bundle patch must not carry a secret
-        run: |
-          if grep -nE 'sk-[A-Za-z0-9]{16,}' cordis.patch.yml README.md lib/index.js; then
-            echo '::error::a credential value leaked into the repository'
-            exit 1
-          fi
+      - name: Manifest, entry point and secret scan
+        run: node tools/check-manifest.mjs

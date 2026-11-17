@@ -1,0 +1,8 @@
+# Keep the published tree byte-identical across platforms.
+* text=auto eol=lf
+
+# Generated images must never be normalised.
+*.png binary
+*.jpg binary
+*.jpeg binary
+*.webp binary

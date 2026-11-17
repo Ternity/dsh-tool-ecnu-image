@@ -1,0 +1,19 @@
+# 本包的 bundle patch 层：装上这个包，profile 就多一行 loader 行。
+#
+# 行 id 与包名一致（tool-ecnu-image / dsh-tool-ecnu-image）。凭据引用 ECNU_API_KEY
+# 走 harness 的 credentials seam；这里只写引用名，绝不写密钥值。
+#
+# 停用： 插件页关掉 tool-ecnu-image 行，或 plugin_manager set_plugin
+#      {"entryId": "tool-ecnu-image", "enabled": false}
+- insert:
+    - id: tool-ecnu-image
+      name: 'dsh-tool-ecnu-image'
+      config:
+        apiKeyEnv: ECNU_API_KEY
+        baseURL: https://chat.ecnu.edu.cn/open/api/v1
+        model: ecnu-image
+        generateToolName: image_generate
+        editToolName: image_edit
+        defaultSize: 1024x1024
+        outputDir: ecnu-image
+        timeoutMs: 300000

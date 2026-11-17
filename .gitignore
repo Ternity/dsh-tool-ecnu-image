@@ -1,0 +1,15 @@
+# Local install artifacts and scratch — belong to the installing machine only.
+_backup/
+node_modules/
+__pycache__/
+*.pyc
+
+# Generated demo output from running the tools locally
+ecnu-image/
+
+# OS / editor noise
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/
+*.log

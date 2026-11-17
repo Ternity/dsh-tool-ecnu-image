@@ -1,0 +1,54 @@
+{
+  "name": "dsh-tool-ecnu-image",
+  "version": "0.1.0",
+  "description": "DeepSeek Harness tool plugin: ecnu-image (East China Normal University ChatECNU) text-to-image and image editing as image_generate / image_edit tools.",
+  "license": "MIT",
+  "author": "Ternity",
+  "type": "module",
+  "main": "lib/index.js",
+  "exports": {
+    ".": "./lib/index.js",
+    "./package.json": "./package.json"
+  },
+  "dsh": {
+    "bundle": {
+      "patch": "./cordis.patch.yml"
+    }
+  },
+  "files": [
+    "lib",
+    "cordis.patch.yml",
+    "README.md",
+    "LICENSE"
+  ],
+  "keywords": [
+    "deepseek",
+    "deepseek-harness",
+    "dsh",
+    "dsh-plugin",
+    "cordis",
+    "plugin",
+    "image",
+    "text-to-image",
+    "image-edit",
+    "ecnu",
+    "chatecnu"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Ternity/dsh-tool-ecnu-image.git"
+  },
+  "homepage": "https://github.com/Ternity/dsh-tool-ecnu-image#readme",
+  "bugs": {
+    "url": "https://github.com/Ternity/dsh-tool-ecnu-image/issues"
+  },
+  "peerDependencies": {
+    "@deepseek-ai/cordis": "*",
+    "@deepseek-ai/dsh-tools": "*",
+    "@deepseek-ai/schemastery": "*"
+  },
+  "scripts": {
+    "test": "node tools/smoke.mjs",
+    "hooks": "node tools/install-hooks.mjs"
+  }
+}

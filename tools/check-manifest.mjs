@@ -26,7 +26,7 @@ check(pkg.type === 'module', 'package must stay ESM')
 check(pkg.main === 'lib/index.js', 'main must stay lib/index.js')
 check(pkg.dsh && pkg.dsh.bundle && pkg.dsh.bundle.patch === './cordis.patch.yml', 'dsh.bundle.patch must point at ./cordis.patch.yml')
 
-const referenced = [pkg.main, pkg.exports && pkg.exports['.'], pkg.dsh && pkg.dsh.bundle && pkg.dsh.bundle.patch, 'LICENSE', 'README.md']
+const referenced = [pkg.main, pkg.exports && pkg.exports['.'], pkg.dsh && pkg.dsh.bundle && pkg.dsh.bundle.patch, 'LICENSE', 'README.md', 'AGENT_HANDOFF.md']
 for (const relative of referenced) {
   if (!relative) {
     failures.push('package.json references an empty path')
@@ -46,7 +46,7 @@ for (const name of ['image_generate', 'image_edit']) {
 
 // A published plugin must never carry a credential value; only reference names.
 const SECRET = /\bsk-[A-Za-z0-9]{16,}/u
-for (const relative of ['lib/index.js', 'cordis.patch.yml', 'README.md', 'package.json']) {
+for (const relative of ['lib/index.js', 'cordis.patch.yml', 'README.md', 'AGENT_HANDOFF.md', 'package.json']) {
   const text = await read(relative)
   check(!SECRET.test(text), 'a credential-looking value leaked into ' + relative)
 }

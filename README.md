@@ -10,6 +10,10 @@
 官方文档：<https://developer.ecnu.edu.cn/vitepress/llm/api/imagegenerate.html> ·
 <https://developer.ecnu.edu.cn/vitepress/llm/api/imageedit.html>
 
+> 接手部署、维护、排障或继续开发的智能体，先读
+> [AGENT_HANDOFF.md](./AGENT_HANDOFF.md)：里面按“工具跑在哪里、安装/升级/卸载、配置、
+> 错误对照、测试、Remote 场景、安全、发布、已知限制”整理。
+
 ## 为什么不放进 provider（模型）组
 
 DSH 的 `@deepseek-ai/dsh-llm-pi-ai` **只派发对话请求**，`dsh-llm` 的模型元数据也只有
